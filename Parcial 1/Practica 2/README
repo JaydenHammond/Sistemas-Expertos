@@ -1,0 +1,45 @@
+Este programa es un chat interactivo en Python que simula una conversación entre un cliente y un dependiente de tienda.
+Su objetivo es demostrar un módulo de adquisición de conocimiento, es decir, la capacidad de aprender nuevas respuestas durante la interacción.
+
+Características principales
+
+Base de conocimiento inicial:
+El dependiente comienza con algunas frases precargadas (por ejemplo, saludos, ofertas, agradecimientos).
+
+Aprendizaje dinámico:
+Si el cliente hace una pregunta que el dependiente no conoce, el programa solicita al usuario que proporcione una respuesta.
+Esa nueva información se guarda automáticamente para futuras conversaciones.
+
+Memoria persistente:
+Todo el conocimiento (preguntas y respuestas) se almacena en un archivo llamado conocimiento_tienda.json, lo que permite que el dependiente recuerde lo aprendido incluso después de cerrar el programa.
+
+Interfaz en consola:
+La interacción se realiza mediante texto en la terminal, de manera sencilla y clara.
+
+Flujo de funcionamiento
+
+Inicio: Se carga la base de conocimiento precargada y los datos previamente guardados (si existen).
+
+Interacción:
+
+El cliente escribe mensajes en la consola.
+
+El dependiente busca una respuesta exacta en su base de conocimiento.
+
+Si la encuentra, la muestra.
+
+Si no, pide al cliente que le enseñe la respuesta correcta.
+
+Aprendizaje: La nueva pregunta y su respuesta se guardan en el archivo para que el dependiente las use en futuras sesiones.
+
+Salida: El cliente puede escribir “salir” para finalizar la conversación.
+
+Aplicaciones prácticas
+
+Este ejemplo puede servir como base para:
+
+Sistemas de atención al cliente simples.
+
+Chatbots educativos que aprenden en tiempo real.
+
+Demostraciones de inteligencia artificial básica y persistencia de datos.
