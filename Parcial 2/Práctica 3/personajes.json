@@ -1,0 +1,216 @@
+[
+    {
+        "nombre": "Iron Man",
+        "genero": "Masculino",
+        "serie": "Marvel",
+        "atributos": {
+            "cabello_oscuro": true,
+            "usa_lentes": false,
+            "es_heroe": true,
+            "es_animado": false,
+            "tiene_poderes": false,
+            "es_humano": true,
+            "tiene_traje": true,
+            "es_villano": false
+        },
+        "veces_elegido": 0
+    },
+    {
+        "nombre": "Batman",
+        "genero": "Masculino",
+        "serie": "DC Comics",
+        "atributos": {
+            "cabello_oscuro": true,
+            "usa_lentes": false,
+            "es_heroe": true,
+            "es_animado": false,
+            "tiene_poderes": false,
+            "es_humano": true,
+            "tiene_traje": true,
+            "es_villano": false
+        },
+        "veces_elegido": 0
+    },
+    {
+        "nombre": "Homero Simpson",
+        "genero": "Masculino",
+        "serie": "Los Simpson",
+        "atributos": {
+            "cabello_oscuro": false,
+            "usa_lentes": false,
+            "es_heroe": false,
+            "es_animado": true,
+            "tiene_poderes": false,
+            "es_humano": true,
+            "tiene_traje": false,
+            "es_villano": false
+        },
+        "veces_elegido": 0
+    },
+    {
+        "nombre": "Darth Vader",
+        "genero": "Masculino",
+        "serie": "Star Wars",
+        "atributos": {
+            "cabello_oscuro": false,
+            "usa_lentes": false,
+            "es_heroe": false,
+            "es_animado": false,
+            "tiene_poderes": true,
+            "es_humano": false,
+            "tiene_traje": true,
+            "es_villano": true
+        },
+        "veces_elegido": 0
+    },
+    {
+        "nombre": "Harry Potter",
+        "genero": "Masculino",
+        "serie": "Harry Potter",
+        "atributos": {
+            "cabello_oscuro": true,
+            "usa_lentes": true,
+            "es_heroe": true,
+            "es_animado": false,
+            "tiene_poderes": true,
+            "es_humano": true,
+            "tiene_traje": false,
+            "es_villano": false
+        },
+        "veces_elegido": 0
+    },
+    {
+        "nombre": "Wonder Woman",
+        "genero": "Femenino",
+        "serie": "DC Comics",
+        "atributos": {
+            "cabello_oscuro": true,
+            "usa_lentes": false,
+            "es_heroe": true,
+            "es_animado": false,
+            "tiene_poderes": true,
+            "es_humano": true,
+            "tiene_traje": true,
+            "es_villano": false
+        },
+        "veces_elegido": 0
+    },
+    {
+        "nombre": "Elsa",
+        "genero": "Femenino",
+        "serie": "Frozen",
+        "atributos": {
+            "cabello_oscuro": false,
+            "usa_lentes": false,
+            "es_heroe": true,
+            "es_animado": true,
+            "tiene_poderes": true,
+            "es_humano": true,
+            "tiene_traje": true,
+            "es_villano": false
+        },
+        "veces_elegido": 0
+    },
+    {
+        "nombre": "Harley Quinn",
+        "genero": "Femenino",
+        "serie": "DC Comics",
+        "atributos": {
+            "cabello_oscuro": false,
+            "usa_lentes": false,
+            "es_heroe": false,
+            "es_animado": false,
+            "tiene_poderes": false,
+            "es_humano": true,
+            "tiene_traje": true,
+            "es_villano": true
+        },
+        "veces_elegido": 0
+    },
+    {
+        "nombre": "Hermione Granger",
+        "genero": "Femenino",
+        "serie": "Harry Potter",
+        "atributos": {
+            "cabello_oscuro": true,
+            "usa_lentes": false,
+            "es_heroe": true,
+            "es_animado": false,
+            "tiene_poderes": true,
+            "es_humano": true,
+            "tiene_traje": false,
+            "es_villano": false
+        },
+        "veces_elegido": 0
+    },
+    {
+        "nombre": "Lisa Simpson",
+        "genero": "Femenino",
+        "serie": "Los Simpson",
+        "atributos": {
+            "cabello_oscuro": false,
+            "usa_lentes": false,
+            "es_heroe": false,
+            "es_animado": true,
+            "tiene_poderes": false,
+            "es_humano": true,
+            "tiene_traje": false,
+            "es_villano": false
+        },
+        "veces_elegido": 0
+    },
+    {
+        "nombre": "Hatsune Miku",
+        "genero": "Femenino",
+        "serie": "Vocaloid",
+        "atributos": {
+            "tiene_traje": true,
+            "es_humano": false,
+            "tiene_poderes": false,
+            "usa_lentes": false,
+            "es_villano": false,
+            "cabello_oscuro": false,
+            "es_animado": false,
+            "es_heroe": false,
+            "tiene_cabello_azul": true
+        },
+        "veces_elegido": 0
+    },
+    {
+        "nombre": "Kasane Teto",
+        "genero": "Femenino",
+        "serie": "Utaloid",
+        "atributos": {
+            "tiene_traje": true,
+            "es_humano": false,
+            "tiene_poderes": false,
+            "usa_lentes": false,
+            "es_villano": false,
+            "cabello_oscuro": false,
+            "es_animado": false,
+            "es_heroe": false,
+            "tiene_cabello_azul": false,
+            "tiene_cabello_rojo": true
+        },
+        "veces_elegido": 0
+    },
+    {
+        "nombre": "Goku",
+        "genero": "Masculino",
+        "serie": "Dragon ball",
+        "atributos": {
+            "tiene_traje": true,
+            "es_humano": false,
+            "tiene_poderes": true,
+            "usa_lentes": false,
+            "es_villano": false,
+            "cabello_oscuro": true,
+            "es_animado": true,
+            "es_heroe": true,
+            "tiene_cabello_azul": false,
+            "tiene_cabello_rojo": false,
+            "es_un_saiyajin": true
+        },
+        "veces_elegido": 0
+    }
+]
