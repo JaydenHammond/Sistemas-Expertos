@@ -1,0 +1,145 @@
+[
+    {
+        "nombre": "Iron Man",
+        "serie": "Marvel",
+        "genero": "masculino",
+        "atributos": {
+            "tiene_armadura": true,
+            "vuela": true,
+            "villano": false,
+            "cabello_rojo": false,
+            "cabello_azul": false,
+            "heroe": true
+        },
+        "puntuacion": 1
+    },
+    {
+        "nombre": "Batman",
+        "serie": "DC",
+        "genero": "masculino",
+        "atributos": {
+            "tiene_armadura": true,
+            "vuela": false,
+            "villano": false,
+            "cabello_negro": true,
+            "heroe": true
+        },
+        "puntuacion": 1
+    },
+    {
+        "nombre": "Darth Vader",
+        "serie": "Star Wars",
+        "genero": "masculino",
+        "atributos": {
+            "villano": true,
+            "tiene_armadura": true,
+            "usa_espada": true,
+            "heroe": false
+        },
+        "puntuacion": 1
+    },
+    {
+        "nombre": "Goku",
+        "serie": "Dragon Ball",
+        "genero": "masculino",
+        "atributos": {
+            "vuela": true,
+            "cabello_negro": true,
+            "villano": false,
+            "heroe": true
+        },
+        "puntuacion": 2
+    },
+    {
+        "nombre": "Spider-Man",
+        "serie": "Marvel",
+        "genero": "masculino",
+        "atributos": {
+            "vuela": false,
+            "usa_mascara": true,
+            "villano": false,
+            "heroe": true
+        },
+        "puntuacion": 1
+    },
+    {
+        "nombre": "Wonder Woman",
+        "serie": "DC",
+        "genero": "femenino",
+        "atributos": {
+            "heroe": true,
+            "vuela": true,
+            "villano": false,
+            "cabello_negro": true
+        },
+        "puntuacion": 1
+    },
+    {
+        "nombre": "Harley Quinn",
+        "serie": "DC",
+        "genero": "femenino",
+        "atributos": {
+            "villano": true,
+            "cabello_rubio": true,
+            "arma": true,
+            "heroe": false
+        },
+        "puntuacion": 1
+    },
+    {
+        "nombre": "Elsa",
+        "serie": "Frozen",
+        "genero": "femenino",
+        "atributos": {
+            "poder_hielo": true,
+            "villano": false,
+            "cabello_rubio": true,
+            "heroe": true
+        },
+        "puntuacion": 1
+    },
+    {
+        "nombre": "Hermione",
+        "serie": "Harry Potter",
+        "genero": "femenino",
+        "atributos": {
+            "magia": true,
+            "villano": false,
+            "cabello_castaño": true,
+            "heroe": true
+        },
+        "puntuacion": 1
+    },
+    {
+        "nombre": "Black Widow",
+        "serie": "Marvel",
+        "genero": "femenino",
+        "atributos": {
+            "heroe": true,
+            "villano": false,
+            "cabello_rojo": true,
+            "arma": true
+        },
+        "puntuacion": 1
+    },
+    {
+        "nombre": "Hatsune Miku",
+        "serie": "Vocaloid",
+        "genero": "femenino",
+        "atributos": {
+            "tiene_armadura": false,
+            "villano": false,
+            "arma": false,
+            "magia": false,
+            "cabello_rubio": false,
+            "cabello_azul": true,
+            "heroe": false,
+            "poder_hielo": false,
+            "vuela": false,
+            "usa_mascara": false,
+            "usa_espada": false,
+            "es cantante": true
+        },
+        "puntuacion": 2
+    }
+]
