@@ -159,7 +159,7 @@ Tonight, he invited the five original ticket holders — all grown up now — ba
 
 But by midnight, the gates would lock behind them... and by dawn, one of them would be dead.
 
-Willy Wonka’s body was found in the Chocolate Room — face down by the river of cocoa, cane still in hand, smile frozen on his lips.
+Willy Wonka’s body was found in the Chocolate Room — face up by the river of cocoa, cane gone, smile frozen on his lips.
 
 The question isn’t who was invited. The question is... who wanted him gone the most?”`;
 
@@ -173,7 +173,7 @@ const SUSPECTS = [
 
 const ROOMS = [
   { key: 'CandyRoom', display:'Candy Room', img:'CandyRoom.PNG' },
-  { key: 'ChololateRiver', display:'Chocolate River', img:'ChololateRiver.PNG' }, // spelled user-provided
+  { key: 'ChololateRiver', display:'Chocolate River', img:'ChocolateRiver.PNG' }, // spelled user-provided
   { key: 'InventionRoom', display:'Invention Room', img:'InventionRoom.PNG' },
   { key: 'TelevisionRoom', display:'Television Room', img:'TelevisionRoom.PNG' },
   { key: 'NutRoom', display:'Nut Room', img:'NutRoom.PNG' },
@@ -422,13 +422,13 @@ function inspectBody(){
     state.revealedBody = true;
     // The body reveals an initial clue depending on the selected case — we'll present a generic hint plus the fact body is found
     showModal('Willy Wonka — The Body', [
-      'Willy Wonka lies facedown near the chocolate stream. His cane has been ripped from his grip and drifts in the current.',
+      'Willy Wonka lies faceup near the chocolate stream. His cane has been ripped from his grip lost.',
       'You can inspect the body for clues. Look around the factory for weapons and interrogate the suspects.'
     ], { canCollect:true, canConfront:false });
     // collect body clue when clicking collect
   } else {
     showModal('Willy Wonka — The Body', [
-      'It is the same scene: Wonka is dead and the river runs dark. There is a faint smell of chocolate and something bitter under it.'
+      'Wonka is dead and the river runs dark. There is a faint smell of chocolate and something bitter under it.'
     ], { canCollect:false, canConfront:false });
   }
 }
