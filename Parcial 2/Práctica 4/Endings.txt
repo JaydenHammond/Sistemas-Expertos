@@ -1,0 +1,299 @@
+🍫 CASE 1: “The Chocolate River Incident”
+
+Killer: Augustus Gloop
+Room: Chocolate River Room
+Weapon: Cane
+
+AUGUSTUS GLOOP (now a rich chocolatier himself)
+
+Main Dialogue:
+
+“I was only tasting the chocolate! Old habits die hard, ja? But murder? No, no, I would never ruin something so sweet.”
+
+If Pressed:
+
+“Fine! I did argue with him. He mocked my company—said my chocolate ‘tasted like melted failure.’ He never learned when to shut that mouth.”
+
+Clue Line:
+
+“I saw something shiny by the river before the alarms went off... maybe his cane? It wasn’t there later.”
+
+VERUCA SALT
+
+Main Dialogue:
+
+“I was upstairs inspecting the nut-sorting machines. Daddy said I could buy one. Why would I get my hands dirty by the river?”
+
+Clue Line:
+
+“Though... Augustus’ shoes were soaked. He looked nervous when we all gathered after the lights went out.”
+
+VIOLET BEAUREGARDE
+
+Main Dialogue:
+
+“Don’t look at me. I was in the Inventing Room working on a sugar-free gum formula. The smell of that river still makes me gag.”
+
+Clue Line:
+
+“There was chocolate smeared across the floor near the stairs. Somebody must’ve slipped through there fast.”
+
+MIKE TEAVEE
+
+Main Dialogue:
+
+“I was watching the monitors, obviously. Someone tripped the security feed in the river room. Then—bam—the system crashed.”
+
+Clue Line:
+
+“The only camera that stayed on was the one facing the river. It showed a figure bending down near the edge…”
+
+CHARLIE BUCKET
+
+Main Dialogue:
+
+“I was with Wonka earlier. He said he was meeting Augustus for a ‘tasting test.’ That’s the last time I saw him alive.”
+
+Clue Line:
+
+“There was a broken cane beside the pipes. He always carried that thing like it was his life.”
+
+🫐 CASE 2: “The Blueberry Revenge”
+
+Killer: Violet Beauregarde
+Room: Inventing Room
+Weapon: Poison
+
+VIOLET BEAUREGARDE
+
+Main Dialogue:
+
+“Don’t you dare say I did it! I was testing his gum formula—same as always. If something went wrong, that’s on him, not me!”
+
+If Pressed:
+
+“He called me ‘the gum girl’ again… I told him to stop. He laughed. I— I didn’t mean for it to go this far.”
+
+Clue Line:
+
+“There was a note on his desk. Said the gas mixture wasn’t stable. I think he knew something bad was coming.”
+
+AUGUSTUS GLOOP
+
+Main Dialogue:
+
+“The smoke made me cough! I ran in to help, but the whole room smelled like sugar and… poison.”
+
+Clue Line:
+
+“The air tanks behind the gum machine had been switched. I saw Violet near them earlier.”
+
+VERUCA SALT
+
+Main Dialogue:
+
+“Gas? Ew. I don’t go near anything that could ruin my skin. But Violet was there first thing, poking at the candy mixer.”
+
+Clue Line:
+
+“She had those purple gloves on again. She never takes them off when she’s nervous.”
+
+MIKE TEAVEE
+
+Main Dialogue:
+
+“The monitors glitched out from the explosion. All I saw before the screen went black was violet smoke everywhere.”
+
+Clue Line:
+
+“Wonka’s goggles were cracked on the floor—like he didn’t have time to put them on.”
+
+CHARLIE BUCKET
+
+Main Dialogue:
+
+“I was in the hall when I heard the bang. When I got there, it was too late. Violet was crying... or pretending to.”
+
+Clue Line:
+
+“There were purple fingerprints on the lever. No one else wears that shade.”
+
+🥚 CASE 3: “The Greed of Veruca Salt”
+
+Killer: Veruca Salt
+Room: Golden Egg Sorting Room
+Weapon: Golden Nut
+
+VERUCA SALT
+
+Main Dialogue:
+
+“It was an accident! I just wanted to see how the machine worked. He shouldn’t have been standing so close!”
+
+If Pressed:
+
+“He said he was cutting me out of his will. Me! After everything my father invested! He got what he deserved.”
+
+Clue Line:
+
+“There was gold dust on the lever, and a piece of my ribbon got caught… Wait, why are you writing that down?”
+
+AUGUSTUS GLOOP
+
+Main Dialogue:
+
+“I heard the machine clank loudly. Then a scream. I thought it was just another test… until we saw him.”
+
+Clue Line:
+
+“Veruca’s perfume still lingered in the air. Too strong to miss.”
+
+VIOLET BEAUREGARDE
+
+Main Dialogue:
+
+“Veruca was bragging about buying the whole egg room an hour before he died. She’s got guilt written all over her manicure.”
+
+Clue Line:
+
+“I saw grease stains on her gloves. She said they were from the machinery. Sure.”
+
+MIKE TEAVEE
+
+Main Dialogue:
+
+“The whole factory’s cameras cut out just before the ‘accident.’ Weird coincidence, huh?”
+
+Clue Line:
+
+“The system logs show the switch pulled at 8:42 PM… exactly when Veruca was on her tour.”
+
+CHARLIE BUCKET
+
+Main Dialogue:
+
+“Wonka trusted her. Said she’d changed. I should’ve known better.”
+
+Clue Line:
+
+“I saw her sneaking out of the egg room. She dropped something shiny—it looked like part of the lever.”
+
+📺 CASE 4: “Static Shock”
+
+Killer: Mike Teavee
+Room: Television-Chocolate Room
+Weapon: Ray gun
+
+MIKE TEAVEE
+
+Main Dialogue:
+
+“You think I zapped him? Please. If anything, he overloaded the system himself. Genius, huh?”
+
+If Pressed:
+
+“He stole my idea for the static transmitter! Said I was too reckless. I just wanted to prove it worked.”
+
+Clue Line:
+
+“Check the voltage logs. One spike—then blackout. Only one person knew the access code.”
+
+AUGUSTUS GLOOP
+
+Main Dialogue:
+
+“When I entered, the room smelled like burnt sugar. Mike was there first… holding a smoking cable.”
+
+Clue Line:
+
+“Wonka’s glasses were melted, ja. The shock must have been strong.”
+
+VERUCA SALT
+
+Main Dialogue:
+
+“Electricity and boys never mix. He was obsessed with that machine—always bragging about being ‘the future.’”
+
+Clue Line:
+
+“He had a burn mark on his sleeve. Fresh. He said it was from a ‘test.’”
+
+VIOLET BEAUREGARDE
+
+Main Dialogue:
+
+“Mike’s been acting weird all day. Wouldn’t let anyone near the control panel. He’s hiding something.”
+
+Clue Line:
+
+“Wonka’s notebook was open to a page titled Static Limitations. The corner’s burnt.”
+
+CHARLIE BUCKET
+
+Main Dialogue:
+
+“I warned him that machine was unstable. He wouldn’t listen. Said he could ‘fix’ it better than Wonka ever could.”
+
+Clue Line:
+
+“The smell of ozone was thick when we found them. Like lightning in the air.”
+
+🪢 CASE 5: “Sweet Silence”
+
+Killer: Charlie Bucket
+Room: Candy Garden
+Weapon: Licorice Rope
+
+CHARLIE BUCKET
+
+Main Dialogue:
+
+“He betrayed everything this factory stood for. I didn’t kill him—I just wanted him to listen.”
+
+If Pressed:
+
+“I built this place with him. I gave up everything. And he sold it to men in suits who never tasted a dream.”
+
+Clue Line:
+
+“You’ll find the rope by the candy tree. I couldn’t bear to touch it again.”
+
+AUGUSTUS GLOOP
+
+Main Dialogue:
+
+“Charlie looked pale when we found him. Like he’d seen a ghost. Or made one.”
+
+Clue Line:
+
+“There was licorice dust on his sleeve. He said it was from the decorations.”
+
+VERUCA SALT
+
+Main Dialogue:
+
+“I saw him arguing with Wonka near the garden bench. His voice—cold. Not the sweet boy we knew.”
+
+Clue Line:
+
+“Wonka’s hat was placed neatly beside him… Charlie always did things neatly.”
+
+VIOLET BEAUREGARDE
+
+Main Dialogue:
+
+“He snapped. You could see it in his eyes. He kept saying, ‘Dreams don’t belong in boardrooms.’”
+
+Clue Line:
+
+“There was a note in his pocket. ‘Forgive me, old friend.’ I think it was meant for Wonka.”
+
+MIKE TEAVEE
+
+Main Dialogue:
+
+“Charlie? The perfect boy? Figures. The world’s gone nuts. Guess even golden tickets have expiration dates.”
+
+Clue Line:
+
+“He stayed after everyone left. Said he wanted to ‘make peace’ with Wonka. Yeah, right.”

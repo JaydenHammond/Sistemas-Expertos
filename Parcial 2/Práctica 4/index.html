@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Clue: The Chocolate Conspiracy (Wonka)</title>
+<style>
+  :root{
+    --bg:#0b0b0b;
+    --panel:#141414;
+    --accent:#d9a32a;
+    --text:#efe7d6;
+  }
+  html,body{height:100%;margin:0;background:linear-gradient(#0b0b0b,#151515);font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;}
+  #game { max-width:1200px;margin:20px auto;padding:16px;color:var(--text); }
+  header{display:flex;align-items:center;gap:16px}
+  header h1{margin:0;font-size:20px;color:var(--accent)}
+  #prologue, #gameArea { margin-top:18px; background:linear-gradient(#111,#0f0f0f); padding:14px;border-radius:10px; box-shadow:0 6px 20px rgba(0,0,0,0.7);}
+  #prologue p{line-height:1.45; margin:10px 0;}
+  #startBtn{background:var(--accent); color:#111; padding:10px 16px; border-radius:8px; border:none; cursor:pointer; font-weight:700;}
+  #mapRow{display:flex;gap:12px;align-items:center}
+  #map { width:240px; height:150px; background:#222; border-radius:6px; overflow:hidden; border:2px solid rgba(255,255,255,0.04); }
+  #map img{width:100%;height:100%;object-fit:cover;}
+  #rooms {flex:1; display:flex; gap:10px; justify-content:flex-end; align-items:center}
+  .roomBtn{background:#1b1b1b;border:1px solid rgba(255,255,255,0.03); color:var(--text); padding:8px 10px; border-radius:6px; cursor:pointer;}
+  #panelRow{display:flex; gap:12px; margin-top:12px}
+  #scene { flex:1; min-height:420px; background:#000; border-radius:8px; overflow:hidden; position:relative; border:2px solid rgba(255,255,255,0.03); }
+  #scene img.bg { width:100%; height:100%; object-fit:cover; display:block; }
+  .actor { position:absolute; cursor:pointer; transform:translate(-50%,-50%); }
+  .weapon-icon { position:absolute; width:64px; height:64px; cursor:pointer; transform:translate(-50%,-50%); border:2px solid rgba(255,255,255,0.06); border-radius:8px; background:#111; display:flex; align-items:center; justify-content:center; }
+  #sidePanel { width:320px; background:#0f0f0f; padding:12px; border-radius:8px; }
+  #inventory, #clues { margin-bottom:12px; }
+  #inventory h3, #clues h3 { margin:6px 0; font-size:14px; color:var(--accent); }
+  #inventory .slot { height:72px; border:1px dashed rgba(255,255,255,0.04); display:flex; align-items:center; justify-content:center; background:#090909; border-radius:6px; }
+  #cluesList { max-height:160px; overflow:auto; padding:8px; background:linear-gradient(#0b0b0b,#0f0f0f); border-radius:6px; border:1px solid rgba(255,255,255,0.03);}
+  #footerNotes{font-size:12px; color:#ccc; margin-top:10px}
+  /* dialogue modal */
+  #modal { position:fixed; left:50%; top:50%; transform:translate(-50%,-50%) scale(0.98); z-index:9999; display:none; background:linear-gradient(#141414,#0d0d0d); border-radius:10px; padding:14px; width:720px; max-width:96%; box-shadow:0 30px 80px rgba(0,0,0,0.7); border:2px solid rgba(255,255,255,0.04); }
+  #modal h2{margin:4px 0 10px 0; color:var(--accent);}
+  #modal p{margin:6px 0;color:var(--text); line-height:1.4}
+  #modal .btnRow{display:flex; gap:8px; margin-top:10px; justify-content:flex-end;}
+  .btn{padding:8px 10px;border-radius:6px;border:none;cursor:pointer;background:#222;color:var(--text)}
+  .btn.primary{background:var(--accent); color:#111; font-weight:700;}
+  #startOverlay{ position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:linear-gradient(180deg, rgba(0,0,0,0.85), rgba(0,0,0,0.95)); z-index:99999; color:var(--text) }
+  #startOverlay .card{ width:880px; max-width:94%; background:#0e0e0e; padding:20px; border-radius:10px; text-align:left; border:2px solid rgba(255,255,255,0.03)}
+  .small{font-size:13px;color:#bdbdbd}
+  .hint{font-size:13px;color:#ccc;margin-top:8px}
+</style>
+</head>
+<body>
+<div id="game">
+  <header>
+    <img src="Map.JPG" alt="map" style="width:64px;height:64px;border-radius:8px;object-fit:cover;border:2px solid rgba(255,255,255,0.04)"/>
+    <h1>Clue — The Chocolate Conspiracy</h1>
+    <div style="flex:1"></div>
+    <div class="small">Find who killed Willy Wonka • Rooms · Weapons · Suspects</div>
+  </header>
+
+  <div id="prologue">
+    <div id="proText">
+      <!-- Story text will be injected -->
+    </div>
+    <div style="margin-top:12px">
+      <button id="startBtn">Start the Reunion</button>
+    </div>
+  </div>
+
+  <div id="gameArea" style="display:none">
+    <div id="mapRow">
+      <div id="map"><img src="Map.JPG" alt="map" /></div>
+      <div id="rooms">
+        <button class="roomBtn" data-room="CandyRoom">Candy Room</button>
+        <button class="roomBtn" data-room="ChololateRiver">Chocolate River</button>
+        <button class="roomBtn" data-room="InventionRoom">Invention Room</button>
+        <button class="roomBtn" data-room="TelevisionRoom">Television Room</button>
+        <button class="roomBtn" data-room="NutRoom">Nut Room</button>
+        <button class="roomBtn" data-room="Office">Office</button>
+      </div>
+    </div>
+
+    <div id="panelRow">
+      <div id="scene" style="flex:1">
+        <!-- Background and actors appear here -->
+        <img class="bg" id="bgImage" src="" alt="room bg" />
+        <!-- actors & weapons dynamically inserted -->
+      </div>
+
+      <div id="sidePanel">
+        <div id="inventory">
+          <h3>Inventory</h3>
+          <div class="slot" id="invSlot">No weapon found yet</div>
+        </div>
+        <div id="clues">
+          <h3>Clues (<span id="clueCount">0</span>)</h3>
+          <div id="cluesList"><em>No clues yet. Interrogate suspects.</em></div>
+        </div>
+
+        <div id="footerNotes">
+          <div><strong>Body:</strong> Found in <em>Candy Room</em> — inspect it first.</div>
+          <div style="margin-top:6px">Find the true weapon, gather at least <strong>2 clues</strong>, then confront the suspect.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Dialogue modal -->
+<div id="modal">
+  <h2 id="modalTitle"></h2>
+  <div id="modalText"></div>
+  <div class="btnRow">
+    <button class="btn" id="modalClose">Close</button>
+    <button class="btn" id="modalCollect">Collect Clue</button>
+    <button class="btn primary" id="modalConfront">Confront</button>
+  </div>
+</div>
+
+<!-- Start overlay with prologue -->
+<div id="startOverlay" style="display:flex">
+  <div class="card">
+    <h2 style="color:var(--accent)">Prologue — The Chocolate Conspiracy</h2>
+    <div id="startStory" class="small" style="white-space:pre-wrap; max-height:420px; overflow:auto; margin-top:8px;">
+      <!-- story text injected here -->
+    </div>
+    <div style="margin-top:12px; text-align:right">
+      <button id="startGameBtn" class="btn primary">Begin the Reunion</button>
+    </div>
+    <div class="hint">Tip: Use the map buttons to move between rooms. Interrogate suspects for clues and inspect weapons.</div>
+  </div>
+</div>
+
+<script>
+/*
+  Clue: The Chocolate Conspiracy
+  Single-file HTML5 prototype.
+
+  - Expects assets in same folder with names listed in header comment.
+  - Uses the story and endings/dialogues provided by the user.
+  - Basic mechanics:
+    * Random case selected at start (one of five endings)
+    * Weapons placed randomly across non-candy rooms
+    * Suspects placed in rooms (Candy Room has the body only)
+    * Inspect body for base clue; interrogate suspects to collect clues
+    * After collecting 2+ clues and locating the murder weapon, confront murderer -> confession if correct
+*/
+
+///// DATA (cases and dialogue taken from the user's files)
+const STORY_TEXT = `“It’s been twenty-eight years since Charlie Bucket found that golden ticket — twenty-eight years since Willy Wonka handed over the keys to his world of pure imagination.
+
+But dreams can rot like old candy.
+
+Charlie tried to keep the magic alive, but the world outside the gates changed. Sugar lost its charm, markets crashed, and the factory bled money like melted chocolate. Desperate, Charlie turned Wonka’s legacy into a public company — ‘Wonka Worldwide, Inc.’ Shareholders replaced Oompa Loompas, and quarterly reports replaced the songs.
+
+And just when it looked like the dream had died... the old candy man came back.
+
+No one knows how Willy Wonka got the money, or why he wanted it. But in a whirlwind of deals and signatures, he bought back every share — took back his empire, piece by piece — until, last month, he became CEO again.
+
+Tonight, he invited the five original ticket holders — all grown up now — back to the factory for a “reunion.”
+
+But by midnight, the gates would lock behind them... and by dawn, one of them would be dead.
+
+Willy Wonka’s body was found in the Chocolate Room — face down by the river of cocoa, cane still in hand, smile frozen on his lips.
+
+The question isn’t who was invited. The question is... who wanted him gone the most?”`;
+
+const SUSPECTS = [
+  { key: 'charlie', display: 'Charlie', img: 'Charlie.PNG' },
+  { key: 'augustus', display: 'Augustus', img: 'Angustus.PNG' }, // user filename spelled Angustus.PNG
+  { key: 'veruca', display: 'Veruca', img: 'Veruca.PNG' },
+  { key: 'violet', display: 'Violet', img: 'Violet.PNG' },
+  { key: 'mike', display: 'Mike', img: 'Mike.PNG' }
+];
+
+const ROOMS = [
+  { key: 'CandyRoom', display:'Candy Room', img:'CandyRoom.PNG' },
+  { key: 'ChololateRiver', display:'Chocolate River', img:'ChololateRiver.PNG' }, // spelled user-provided
+  { key: 'InventionRoom', display:'Invention Room', img:'InventionRoom.PNG' },
+  { key: 'TelevisionRoom', display:'Television Room', img:'TelevisionRoom.PNG' },
+  { key: 'NutRoom', display:'Nut Room', img:'NutRoom.PNG' },
+  { key: 'Office', display:'Office', img:'Office.PNG' }
+];
+
+const WEAPONS = [
+  { key:'Poison', img:'Poison.PNG', display:'Poison Bottle' },
+  { key:'Cane', img:'Cane.PNG', display:"Wonka's Cane" },
+  { key:'Nut', img:'Nut.PNG', display:'Golden Nut' },
+  { key:'Ray', img:'Ray.PNG', display:'Experimental Blaster' },
+  { key:'Rope', img:'Rope.PNG', display:'Licorice Rope' }
+];
+
+// cases are based on user's "Endings.txt" mapping. Each case includes murderer, murderRoom, murderWeapon
+const CASES = [
+  { id:1, name:'Chocolate River Incident', murderer:'augustus', room:'ChololateRiver', weapon:'Cane' },
+  { id:2, name:'Blueberry Revenge', murderer:'violet', room:'InventionRoom', weapon:'Poison' },
+  { id:3, name:'Greed of Veruca', murderer:'veruca', room:'NutRoom', weapon:'Nut' },
+  { id:4, name:'Static Shock', murderer:'mike', room:'TelevisionRoom', weapon:'Ray' },
+  { id:5, name:'Sweet Silence', murderer:'charlie', room:'Office', weapon:'Rope' } // story said Candy Garden but user listed Office — placing murderer room as Office per endings text; the body remains in CandyRoom
+];
+
+// Dialogue snippets for suspects per case (taken from Endings.txt -> each suspect has lines for each case).
+// For simplicity we map suspect-> array of strings (generic lines) — these were included in the file the user uploaded.
+const DIALOGUES = {
+  charlie: [
+    // case-specific lines can be selected; using the lines from Endings.txt (for their cases)
+    "I was standing by the chocolate river... I thought I heard him laugh.",
+    "We had words earlier about the factory. He should have trusted me.",
+    "I found his cane floating."
+  ],
+  augustus: [
+    "I was inspecting the machines — I only want what I make to be perfect.",
+    "My boots got muddy in the river earlier. It was humiliating the last time.",
+    "I saw someone near the riverbank before the alarm."
+  ],
+  veruca: [
+    "I was looking at the egg sorter. I couldn't stand his attitude.",
+    "My glove was ruined by grease. I didn't kill him!",
+    "I swear I smelled perfume near the lever."
+  ],
+  violet: [
+    "I was testing the gum formula — it was volatile.",
+    "He said things to me... I won't be mocked.",
+    "There were purple fingerprints on a lever."
+  ],
+  mike: [
+    "I was checking the monitors. The feeds glitched before the scream.",
+    "His notebook had my name on it — like he was watching me.",
+    "There was a power surge right when he fell."
+  ]
+};
+
+// Short clue strings we will award when the player collects clues from suspects.
+// I'm using the "Clue Line" lines from the user's Endings text to keep things consistent.
+const CLUE_LINES = {
+  charlie: [
+    "There was a broken cane beside the pipes. He always carried that thing like it was his life.",
+    "I was with Wonka earlier. He said he was meeting Augustus for a 'tasting test.'",
+    "You’ll find the rope by the candy tree. I couldn’t bear to touch it again." // from other case
+  ],
+  augustus: [
+    "I saw something shiny by the river before the alarms went off... maybe his cane?",
+    "Wonka’s glasses were melted, ja. The shock must have been strong.",
+    "My boots were soaked in chocolate earlier."
+  ],
+  veruca: [
+    "There was gold dust on the lever, and a piece of my ribbon got caught.",
+    "Veruca’s perfume still lingered in the air. Too strong to miss.",
+    "I saw her sneaking out of the egg room. She dropped something shiny."
+  ],
+  violet: [
+    "There was a note on his desk. Said the gas mixture wasn’t stable.",
+    "There were purple fingerprints on the lever. No one else wears that shade.",
+    "Wonka’s goggles were cracked on the floor—like he didn’t have time to put them on."
+  ],
+  mike: [
+    "Check the voltage logs. One spike—then blackout. Only one person knew the access code.",
+    "The monitors glitched out from the explosion. All I saw before the screen went black was violet smoke.",
+    "He had a burn mark on his sleeve. Fresh. He said it was from a 'test.'"
+  ]
+};
+
+///// GAME STATE
+let state = {
+  selectedCase: null,
+  playerRoom: 'CandyRoom',
+  roomContents: {},   // which suspect present in each room (suspect key), except CandyRoom which has body only
+  weaponLocations: {}, // weaponKey -> roomKey
+  foundWeapon: null, // weaponKey found by player
+  cluesFound: [], // array of clue strings
+  cluesBySuspect: {}, // track which suspect clues collected
+  revealedBody: false,
+  started: false
+};
+
+///// UTILITY
+function el(q){ return document.querySelector(q); }
+function showModal(title, lines, options={}) {
+  const modal = el('#modal');
+  el('#modalTitle').textContent = title;
+  el('#modalText').innerHTML = '';
+  if(Array.isArray(lines)){
+    lines.forEach(l=>{
+      const p = document.createElement('p'); p.textContent = l; el('#modalText').appendChild(p);
+    });
+  } else {
+    el('#modalText').innerHTML = '<p>'+lines+'</p>';
+  }
+  // buttons
+  el('#modalCollect').style.display = options.canCollect ? 'inline-block' : 'none';
+  el('#modalConfront').style.display = options.canConfront ? 'inline-block' : 'none';
+  el('#modal').style.display = 'block';
+}
+function hideModal(){ el('#modal').style.display = 'none'; }
+function randPick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+function shuffle(arr){ for(let i=arr.length-1;i>0;i--){ let j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]];} return arr; }
+
+///// GAME INITIALIZATION
+function startNewGame(){
+  // choose a random case
+  const chosen = randPick(CASES);
+  state.selectedCase = JSON.parse(JSON.stringify(chosen));
+  // place suspects in rooms (one suspect per room; CandyRoom will have no suspect)
+  // pick 5 rooms (excluding CandyRoom) for 5 suspects
+  const availableRooms = ROOMS.map(r=>r.key).filter(k=>k!=='CandyRoom');
+  shuffle(availableRooms);
+  state.roomContents = {};
+  for(let i=0;i<SUSPECTS.length;i++){
+    state.roomContents[availableRooms[i]] = SUSPECTS[i].key; // simple one-to-one; order of SUSPECTS array determines placement
+  }
+  // The murderer might be in whichever room assigned; that's fine. The case defines which suspect is the killer.
+  // Place weapons randomly across the non-candy rooms
+  const weaponRooms = [...availableRooms];
+  shuffle(weaponRooms);
+  state.weaponLocations = {};
+  for(let i=0;i<WEAPONS.length;i++){
+    const w = WEAPONS[i].key;
+    const r = weaponRooms[i % weaponRooms.length];
+    state.weaponLocations[w] = r;
+  }
+  // But ensure the murder weapon exists somewhere (it will — all weapons placed) — nothing extra needed.
+  // reset other state
+  state.foundWeapon = null;
+  state.cluesFound = [];
+  state.cluesBySuspect = {};
+  state.revealedBody = false;
+  state.playerRoom = 'CandyRoom';
+  state.started = true;
+
+  // update UI
+  el('#cluesList').innerHTML = '<em>No clues yet. Interrogate suspects.</em>';
+  el('#clueCount').textContent = '0';
+  updateInventory();
+  renderRoom();
+}
+
+function updateInventory(){
+  const slot = el('#invSlot');
+  if(state.foundWeapon){
+    const w = WEAPONS.find(x=>x.key===state.foundWeapon);
+    slot.innerHTML = `<div style="display:flex;align-items:center;gap:10px"><img src="${w.img}" style="height:56px"/><div>${w.display}</div></div>`;
+  } else {
+    slot.textContent = 'No weapon found yet';
+  }
+}
+
+function renderRoom(){
+  const bg = el('#bgImage');
+  const roomKey = state.playerRoom;
+  const room = ROOMS.find(r=>r.key===roomKey);
+  if(room) bg.src = room.img;
+  // clear previous actors and weapons
+  const scene = el('#scene');
+  // remove actor and weapon nodes
+  Array.from(scene.querySelectorAll('.actor, .weapon-icon')).forEach(n=>n.remove());
+
+  // if candy room: show body (wonka dead) and allow inspect
+  if(roomKey === 'CandyRoom'){
+    // display dead Wonka image in center
+    const img = document.createElement('img');
+    img.src = 'Wonka_dead.PNG';
+    img.className = 'actor';
+    img.style.left = '50%'; img.style.top='60%'; img.style.width='360px'; img.style.transform='translate(-50%,-50%)';
+    img.alt='Wonka Dead';
+    img.addEventListener('click', inspectBody);
+    scene.appendChild(img);
+  } else {
+    // show the suspect present here (if any)
+    const suspectKey = state.roomContents[roomKey];
+    if(suspectKey){
+      const sdata = SUSPECTS.find(s=>s.key===suspectKey);
+      if(sdata){
+        const a = document.createElement('img');
+        a.src = sdata.img;
+        a.className = 'actor';
+        // position suspects left/right depending on room (simple)
+        const pos = {left:'50%', top:'62%', width:'260px'};
+        if(roomKey==='ChololateRiver'){ pos.left='36%'; pos.top='60%'; pos.width='220px'; }
+        if(roomKey==='InventionRoom'){ pos.left='60%'; pos.top='58%'; pos.width='220px'; }
+        if(roomKey==='TelevisionRoom'){ pos.left='50%'; pos.top='58%'; pos.width='200px'; }
+        if(roomKey==='NutRoom'){ pos.left='40%'; pos.top='60%'; pos.width='240px'; }
+        if(roomKey==='Office'){ pos.left='56%'; pos.top='58%'; pos.width='210px'; }
+        a.style.left = pos.left; a.style.top = pos.top; a.style.width = pos.width; a.style.transform='translate(-50%,-50%)';
+        a.alt = sdata.display;
+        a.addEventListener('click', ()=> openSuspectDialog(suspectKey));
+        scene.appendChild(a);
+      }
+    }
+    // show any weapons that are located in this room
+    for(const w of WEAPONS){
+      if(state.weaponLocations[w.key] === roomKey){
+        // render weapon icon at different positions based on key
+        const node = document.createElement('div');
+        node.className = 'weapon-icon';
+        // small inner img
+        const img = document.createElement('img');
+        img.src = w.img;
+        img.style.maxWidth='56px'; img.style.maxHeight='56px';
+        node.appendChild(img);
+        // position heuristics
+        let left='20%', top='20%';
+        if(w.key==='Poison'){ left='18%'; top='26%'; }
+        else if(w.key==='Cane'){ left='82%'; top='24%'; }
+        else if(w.key==='Nut'){ left='50%'; top='26%'; }
+        else if(w.key==='Ray'){ left='72%'; top='68%'; }
+        else if(w.key==='Rope'){ left='24%'; top='70%'; }
+        node.style.left = left; node.style.top = top;
+        node.title = w.display;
+        node.addEventListener('click', ()=> collectWeapon(w.key, w.display));
+        scene.appendChild(node);
+      }
+    }
+  }
+  // update room title/inventory/clues displayed
+  document.querySelectorAll('.roomBtn').forEach(b=>{
+    b.classList.toggle('active', b.dataset.room===state.playerRoom);
+  });
+}
+
+// inspect body in Candy Room
+function inspectBody(){
+  if(!state.started) return;
+  if(!state.revealedBody){
+    state.revealedBody = true;
+    // The body reveals an initial clue depending on the selected case — we'll present a generic hint plus the fact body is found
+    showModal('Willy Wonka — The Body', [
+      'Willy Wonka lies facedown near the chocolate stream. His cane has been ripped from his grip and drifts in the current.',
+      'You can inspect the body for clues. Look around the factory for weapons and interrogate the suspects.'
+    ], { canCollect:true, canConfront:false });
+    // collect body clue when clicking collect
+  } else {
+    showModal('Willy Wonka — The Body', [
+      'It is the same scene: Wonka is dead and the river runs dark. There is a faint smell of chocolate and something bitter under it.'
+    ], { canCollect:false, canConfront:false });
+  }
+}
+
+// when player chooses to collect from modal (body or suspect clue)
+el('#modalCollect').addEventListener('click', ()=>{
+  // collect clue based on last modal content (we store last modal target in state)
+  const title = el('#modalTitle').textContent.toLowerCase();
+  if(title.includes('wonka')){
+    // body clue: add a generic first clue
+    addClue("Found on the body: his cane was nearby and the river looked darker than usual.");
+  } else {
+    // suspect modal - we stored currentSuspectKey in state.tempSuspect
+    if(state.tempSuspectKey){
+      const sk = state.tempSuspectKey;
+      // pick a clue line for that suspect that hasn't been collected yet
+      const available = CLUE_LINES[sk].filter(c => !state.cluesFound.includes(c));
+      if(available.length>0){
+        const clueText = available[0];
+        addClue(clueText);
+        // mark that suspect's one clue collected
+        state.cluesBySuspect[sk] = (state.cluesBySuspect[sk]||0)+1;
+      } else {
+        // if we've exhausted, give a generic line
+        addClue("They repeat that they saw something suspicious earlier...");
+      }
+    }
+  }
+  hideModal();
+  renderRoom();
+});
+
+// confrontation button logic
+el('#modalConfront').addEventListener('click', ()=>{
+  // gather modal suspect key
+  const sk = state.tempSuspectKey;
+  if(!sk){
+    hideModal();
+    return;
+  }
+  // only possible to confront if player has at least 1 weapon found
+  if(!state.foundWeapon){
+    alert('You need to find at least one weapon before confronting anybody.');
+    return;
+  }
+  // You can only get a confession if you've collected >=2 clues in total and the found weapon matches the selectedCase.weapon and suspect is murderer.
+  const cluesNeeded = 2;
+  if(state.cluesFound.length < cluesNeeded){
+    alert('You need more clues before a valid confrontation (collect at least 2 clues).');
+    return;
+  }
+  const murderer = state.selectedCase.murderer;
+  const murderWeapon = state.selectedCase.weapon;
+  if(sk === murderer && state.foundWeapon === murderWeapon){
+    // confession success
+    showModal('Confrontation', [
+      `You present the ${WEAPONS.find(w=>w.key===state.foundWeapon).display} and the clues you gathered.`,
+      `${suspectDisplayName(sk)} falters... then confesses:`,
+      `"Yes. It was me. I couldn't stand it any longer. He bought back the factory, and everything I lost burned inside me. I used the ${WEAPONS.find(w=>w.key===state.foundWeapon).display} and left him by the river of candy. I'm sorry..."`
+    ], { canCollect:false, canConfront:false });
+    // reveal win message and show solution
+    setTimeout(()=> {
+      alert(`Case solved!\n\nMurderer: ${suspectDisplayName(sk)}\nWeapon: ${WEAPONS.find(w=>w.key===state.foundWeapon).display}\nOriginal location where body found: Candy Room\nMurder occurred in: ${state.selectedCase.room}`);
+    }, 300);
+  } else {
+    // wrong accusation: give feedback, but do not end game
+    showModal('Confrontation — Wrong!', [
+      `You accuse ${suspectDisplayName(sk)} with the ${WEAPONS.find(w=>w.key===state.foundWeapon).display}.`,
+      `${suspectDisplayName(sk)} glares. "You have no proof. You're wrong!"`,
+      `The murderer did not confess. Keep searching for clues and find the true weapon or suspect.`
+    ], { canCollect:false, canConfront:false});
+  }
+});
+
+// helper to format suspect display name
+function suspectDisplayName(key){
+  const s = SUSPECTS.find(x=>x.key===key);
+  return s ? s.display : key;
+}
+
+// open suspect dialog, show their lines
+function openSuspectDialog(suspectKey){
+  state.tempSuspectKey = suspectKey; // store for later collection/confrontation
+  // choose a few dialogue lines to show (from DIALOGUES)
+  const lines = DIALOGUES[suspectKey] || ["They have nothing to say."];
+  // plus their motive line (small)
+  const motive = getMotiveText(suspectKey);
+  const content = [...lines, '', 'Motive:', motive];
+  // canCollect: if suspect has any clues we haven't collected yet
+  const avail = (CLUE_LINES[suspectKey] || []).filter(c => !state.cluesFound.includes(c));
+  // can confront only if player is in same room and has found weapon; we show separate button but enforce logic on click.
+  const canCollect = avail.length>0;
+  const canConfront = true; // show confront button for convenience (it will check conditions)
+  showModal(suspectDisplayName(suspectKey), content, {canCollect, canConfront});
+}
+
+// returns motive text for suspect according to story mapping
+function getMotiveText(sKey){
+  switch(sKey){
+    case 'charlie': return "Charlie lost the factory when Wonka bought back all the shares. He feels humiliated and replaced.";
+    case 'augustus': return "Augustus had his product lines undermined by Wonka and was publicly mocked.";
+    case 'veruca': return "Veruca lost power and fortune when Wonka revoked contracts and shamed her products.";
+    case 'violet': return "Violet's fame and health were ruined after a Wonka experiment; she blames him.";
+    case 'mike': return "Mike lost patents and fortune after Wonka's projects copied his tech; he wants revenge.";
+    default: return "They had their reasons.";
+  }
+}
+
+// add a clue to player's list
+function addClue(text){
+  if(state.cluesFound.includes(text)){
+    return;
+  }
+  state.cluesFound.push(text);
+  // update UI
+  const list = el('#cluesList');
+  if(state.cluesFound.length === 1) list.innerHTML = '';
+  const li = document.createElement('div'); li.style.padding='6px 6px'; li.style.borderBottom='1px solid rgba(255,255,255,0.02)';
+  li.textContent = text;
+  list.appendChild(li);
+  el('#clueCount').textContent = String(state.cluesFound.length);
+}
+
+// collect weapon when clicking icon
+function collectWeapon(wKey, displayName){
+  // if player already found a weapon, confirm they want to pick up new one (we only keep one in inventory)
+  const room = state.playerRoom;
+  // ensure we are in same room as weapon to collect
+  // collect it and remove it from room
+  if(state.weaponLocations[wKey] !== room){
+    alert('This weapon is not here.');
+    return;
+  }
+  state.foundWeapon = wKey;
+  // remove the weapon from the room
+  delete state.weaponLocations[wKey];
+  updateInventory();
+  renderRoom();
+  showModal('Collected ' + displayName, [`You picked up the ${displayName}. Keep it safe — it might be the murder weapon.`], {canCollect:false, canConfront:false});
+}
+
+// UI wiring: map buttons to change rooms
+document.querySelectorAll('.roomBtn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const r = btn.dataset.room;
+    state.playerRoom = r;
+    renderRoom();
+  });
+});
+
+// start button / overlay
+el('#startBtn').addEventListener('click', ()=> {
+  // scroll to game area if already started
+  document.querySelector('#gameArea').scrollIntoView({behavior:'smooth'});
+});
+el('#startGameBtn').addEventListener('click', ()=>{
+  // hide overlay and show gameArea
+  document.getElementById('startOverlay').style.display='none';
+  document.getElementById('prologue').style.display='none';
+  document.getElementById('gameArea').style.display='block';
+  // start game now
+  startNewGame();
+  // show dramatic reveal: black screen -> CandyRoom with dead Wonka
+  // (we already start in CandyRoom)
+  setTimeout(()=>{
+    // quick white flash? we just render room
+    renderRoom();
+    showModal('Horror!', ['You find Willy Wonka dead in the Candy Room. His cane drifts in the chocolate current. One of the guests did this.'], {canCollect:true, canConfront:false});
+  }, 500);
+});
+
+// modal close
+el('#modalClose').addEventListener('click', ()=> {
+  state.tempSuspectKey = null;
+  hideModal();
+});
+
+// initial render of prologue text in overlay
+el('#startStory').textContent = STORY_TEXT;
+el('#proText').innerHTML = '<p style="white-space:pre-wrap;">' + STORY_TEXT + '</p>';
+
+///// On first load, keep overlay visible; once start clicked, the game begins.
+
+///// Keyboard shortcuts for debugging
+document.addEventListener('keydown',(ev)=>{
+  if(ev.key === 'r'){ startNewGame(); }
+});
+
+</script>
+</body>
+</html>
